@@ -1,4 +1,6 @@
+#include <Arduino.h>
 #include <Adafruit_TLC5947.h>
+
 #define NUM_TLC5974 1
 #define data   MOSI
 #define clock   SCK
