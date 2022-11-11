@@ -1,4 +1,4 @@
-#include <Arduino.h>
+
 #include <Adafruit_TLC5947.h>
 
 #define NUM_TLC5974 1
@@ -71,6 +71,8 @@ Quizzer quizzers[5] = {
 	{7, 16, 5},
 };
 
+int activeQuizzer = -1;
+
 // 0: Unlocked
 // 1: armed
 // 2: triggered
@@ -116,7 +118,23 @@ void loop() {
 			}
 			break;
 		
-		case 1:
+		case 1: // Box is armed
+			for (int quizzer = 0; quizzer < 5; quizzer ++) {
+				quizzers[quizzer].readSlide();
+				if (quizzers[quizzer].enabled) {
+					// if quizzer.standing changed, tlcFlag = true
+					tlcFlag = quizzers[quizzer].readSeat();
+
+					if (quizzers[quizzer].standing) {
+						tlc.setLED(quizzers[quizzer].led, R,G,B);
+						// Beep
+						// Start Timer
+						// enable light
+						boxState = 2;
+						break;
+					}
+				}
+			}
 			break;
 
 		case 2:
