@@ -137,7 +137,9 @@ void loop() {
 			}
 			break;
 
-		case 2:
+		case 2: // Quizzer is answering
+			// Write timer
+			// listen for reset
 			break;
 
 		default:
